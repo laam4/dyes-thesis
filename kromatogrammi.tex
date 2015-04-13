@@ -1,0 +1,25 @@
+
+
+%TITLES
+%chapter title
+\titleformat{\chapter}
+{\fontsize{13pt}{13pt}\bfseries\linespread{1}}
+{\thechapter}{.5cm}{}
+\titlespacing*{\chapter}{0pt}{.32cm}{9pt}
+\titleformat{\section}
+{\fontsize{12pt}{12pt}\linespread{1}}
+{\thesection}{.5cm}{}
+\titlespacing*{\section}{0pt}{14pt}{6pt}
+\titleformat{\subsection}
+{\fontsize{12pt}{12pt}\linespread{1}}
+{\thesubsection}{.5cm}{}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\newgeometry{top=1cm, bottom=0cm, left=4cm, right=2cm, nofoot}
+\chapter{Kromatogrammi kaikista analyyteistä}\label{appx:kromatogrammi}
+%\thispagestyle{empty}
+\vspace{-40pt}
+%\begin{adjustwidth}{0em}{-5em}
+\includegraphics[scale=0.50]{liitekromatogrammi}
+%\end{adjustwidth}
+%\ThisCenterWallPaper{1}{liitekromatogrammi}
+\restoregeometry

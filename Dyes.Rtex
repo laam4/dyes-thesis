@@ -1,0 +1,1088 @@
+%----------------------------------------------------------------------------------------
+%   THESIS{
+%----------------------------------------------------------------------------------------
+
+\def\thesislang{finnish} %change this depending on your language
+\author{Patrik Luoto}
+
+%Finnish section
+\def\otsikko{Väriaineiden määritys elintarvikkeista\\ LC-MS/MS-tekniikalla}
+\def\otsikkob{Väriaineiden määritys elintarvikkeista LC-MS/MS-tekniikalla}
+\def\tutkinto{Laboratorioanalyytikko (AMK)}
+\def\kohjelma{Laboratorioala}
+\def\suuntautumis{Suuntautumisvaihtoehto}
+\def\ohjaajat{FM Mia Ruismäki\newline FT Suvi Ojanperä}
+\def\avainsanat{LC-MS/MS, synteettiset väriaineet, elintarvikevärit, validointi}
+
+%English section, for abstract
+\title{Analysis of colorants in foodstuff by LC-MS/MS}
+\def\metropoliadegree {Bachelor of Laboratory Services}
+\def\metropoliadegreeprogramme {Laboratory Sciences}
+\def\metropoliaspecialisation {Name of your specialisation option}
+\def\metropoliainstructors {
+Mia Ruismäki, M.Sc.\newline
+Suvi Ojanperä, Ph.D.
+}
+\def\metropoliakeywords {LC-MS/MS, synthetic colorants, food colorants, validation}
+
+%}
+%----------------------------------------------------------------------------------------
+%   GLOBAL STYLES{
+%----------------------------------------------------------------------------------------
+\documentclass[11pt,a4paper,oneside,article]{memoir}
+\usepackage[\thesislang]{babel} 
+\usepackage{iflang}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fontspec}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage[hyphens]{url}
+\usepackage{mathtools}
+\usepackage{wallpaper}
+\usepackage{datetime}
+\usepackage[bookmarksdepth=subsection]{hyperref}
+\usepackage{booktabs}
+\usepackage[amssymb]{SIunits}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\usepackage[version=3]{mhchem}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage[flushleft]{threeparttable}
+\usepackage{chemfig}
+
+\renewcommand{\dateseparator}{.}
+%condition for adding or not space in TOC
+\usepackage{etoolbox}
+%for compact list
+\usepackage{enumitem}
+%for block comment
+\usepackage{verbatim}
+%for "easier" references
+\usepackage{varioref}
+%forcing single line spacing in bibliography
+\DisemulatePackage{setspace}
+\usepackage{setspace}
+%including figure (image)
+\usepackage{graphicx}
+%change the numbering for figure
+\usepackage{chngcntr}
+%strike trough
+\usepackage{ulem}
+%euro symbol
+\usepackage{eurosym}
+%try to count
+\usepackage{totcount}
+%insert source code
+\usepackage{listings}
+\usepackage[font=small]{caption}
+%\usepackage{color}
+%force the width of a table instead of column
+\usepackage{tabularx}
+\usepackage{pifont}
+
+
+%NORMAL TEXT
+%all text, title, etc. in the same font: Tahoma
+\setmainfont
+[BoldFont=LiberationSans-Bold.ttf,
+ItalicFont=LiberationSans-Italic.ttf,
+BoldItalicFont=LiberationSans-BoldItalic.ttf]
+{LiberationSans-Regular.ttf}
+%line space
+\linespread{1.5}
+%\doublespacing
+%margin
+\usepackage[top=2.5cm, bottom=3cm, left=4cm, right=2cm, nofoot]{geometry}
+\setlength{\parindent}{0pt} %first line of paragraph not indented
+\setlength{\parskip}{16.5pt} %one empty line to separate paragraph
+%list with small line space separation
+\tightlists
+
+%IMAGE - FIGURE
+%the figures should be placed in the "illustration" folder
+\graphicspath{{img/}}
+%figure number without chapter (1.1, 1.2, 2.1) to (1, 2, 3)
+\counterwithout{figure}{chapter}
+%border around images
+\setlength\fboxsep{0pt}
+\setlength\fboxrule{0.5pt}
+%caption font size
+\captionnamefont{\footnotesize}
+\captiontitlefont{\footnotesize}
+%space after figure caption (and other float elements)
+%\setlength{\belowcaptionskip}{-7pt}
+%\addtolength{\textfloatsep}{5mm}
+\setlength{\textfloatsep}{24pt plus 1.0pt minus 2.0pt}
+\setlength{\intextsep}{24pt plus 1.0pt minus 2.0pt}
+%\addtolength{\belowcaptionskip}{-7pt}
+%\addtolength{\abovecaptionskip}{12pt}
+
+%TABLE
+\counterwithout{table}{chapter}
+
+%SOURCE CODE
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\lstset{
+extendedchars=true,
+captionpos=b,
+caption=\footnotesize,
+basicstyle=\singlespacing\ttfamily,%\small\fontfamily{"Courier"}\selectfont,
+keywordstyle=\color{blue}\bfseries,
+commentstyle=\color{purple}\itshape,
+identifierstyle=\color{black},
+stringstyle=\color{red},
+showstringspaces=false,
+showspaces=false,
+numbers=left,
+numberstyle=\footnotesize,
+numbersep=9pt,
+breaklines=true,
+tabsize=2,
+showtabs=false,
+xleftmargin=1cm
+}
+\IfLanguageName {finnish} {\renewcommand{\lstlistingname}{Listaus}} {} % what is a good translation for this?
+%\counterwithout{lstlisting}{chapter}
+%moved after begin document, otherwise does not compile
+
+
+%TOC
+%change toc title
+\IfLanguageName {finnish} {\addto{\captionsfinnish}{\renewcommand*{\contentsname}{Sisällys}}} {}
+%remove dots
+\renewcommand*{\cftdotsep}{\cftnodots}
+%chapter title and page number not in bold
+\renewcommand{\cftchapterfont}{}
+\renewcommand{\cftchapterpagefont}{}
+%sub section in toc
+\setcounter{tocdepth}{2}
+%subsection numbered
+\setcounter{secnumdepth}{2}
+\renewcommand{\tocheadstart}{\vspace*{-15pt}}
+\renewcommand{\printtoctitle}[1]{\fontsize{13pt}{13pt}\bfseries #1}
+\renewcommand{\aftertoctitle}{\vspace*{-22pt}\afterchaptertitle}
+%spacing afer a chapter in toc
+\preto\section{%
+  \ifnum\value{section}=0\addtocontents{toc}{\vskip11pt}\fi
+}
+%spacing afer a section in toc
+\renewcommand{\cftsectionaftersnumb}{\vspace*{-3pt}}
+%spacing afer a subsection in toc
+\renewcommand{\cftsubsectionaftersnumb}{\vspace*{-1pt}}
+%appendix in toc with "Appendix " + num
+\IfLanguageName {finnish} {
+  \renewcommand*{\cftappendixname}{Liite\space}
+  \renewcommand{\appendixtocname}{Liitteet}
+}{\renewcommand*{\cftappendixname}{Appendix\space}}
+%appendix header
+\IfLanguageName {finnish} {\def\appname{Liite\space}}{\def\appname{Appendix\space}}
+
+
+%TITLES
+%chapter title
+\titleformat{\chapter}{\fontsize{13pt}{13pt}\bfseries\linespread{1}}{\thechapter}{.5cm}{}
+\titleformat{\section}{\fontsize{12pt}{12pt}\linespread{1}}{\thesection}{.5cm}{}
+\titleformat{\subsection}{\fontsize{12pt}{12pt}\linespread{1}}{\thesubsection}{.5cm}{}
+
+\titlespacing*{\chapter}{0pt}{24pt plus 1.0pt minus 2.0pt}{6pt plus 1.0pt minus 2.0pt}
+\titlespacing*{\section}{0pt}{10pt plus 1.0pt minus 2.0pt}{5pt plus 1.0pt minus 2.0pt}
+\titlespacing*{\subsection}{0pt}{10pt plus 1.0pt minus 2.0pt}{5pt plus 1.0pt minus 2.0pt}
+
+%QUOTE
+\renewenvironment{quote}
+  {\list{}{\rightmargin=0pt\leftmargin=1cm\topsep=-10pt}%
+  \item\relax\fontsize{10pt}{10pt}\singlespacing}
+  {\endlist}
+
+%BIBLIOGRAPHY
+%bibliography title to be "references"
+\IfLanguageName {finnish} {\addto{\captionsfinnish}{\renewcommand*{\bibname}{Lähteet}}} {\renewcommand\bibname{References}}
+\makeatletter %reference list option change
+\renewcommand\@biblabel[1]{#1\hspace{1cm}} %from [1] to 1 with 1cm gap
+\makeatother %
+\setlength{\bibitemsep}{11pt}
+
+%count the appendices (since the chapter counter is reset after \appendix).
+%! require to complie 2 times
+\regtotcounter{chapter}
+
+%TITLE PAGE
+\makeatletter
+\renewcommand{\maketitle}{
+\thispagestyle{empty}
+\ThisCenterWallPaper{1}{viiva}
+%
+\vspace*{9.5cm}
+\tn{\LARGE \@author\\[0.75cm]\Huge \IfLanguageName {finnish}{\otsikko}{\@title}}\\[3cm]
+
+\parbox{.7\linewidth}{\normalsize 
+\IfLanguageName {finnish}{
+  Metropolia Ammattikorkeakoulu\\[2pt]
+  \tutkinto \\[2pt]
+  \kohjelma \\[2pt]
+  Opinnäytetyö\\[2pt]
+  \pvm
+} {
+  Helsinki Metropolia University of Applied Sciences\\[2pt]
+  \metropoliadegree \\[2pt]
+  \metropoliadegreeprogramme \\[2pt]
+  Thesis\\[2pt]
+  \ddmmyyyydate\today %to be checked date format? 
+}
+}
+\ThisLRCornerWallPaper{1}{metropolia}
+%
+\clearpage
+}
+\makeatother
+
+\makepagestyle{tiivis}
+\makeevenhead{tiivis}{}{}{Tiivistelmä}
+\makeoddhead{tiivis}{}{}{Tiivistelmä}
+
+\makepagestyle{abstract}
+\makeevenhead{abstract}{}{}{Abstract}
+\makeoddhead{abstract}{}{}{Abstract}
+
+
+\begin{document}
+\newdate{paiva}{05}{12}{2014}
+\date{\displaydate{paiva}}
+\def\pvm{\ddmmyyyydate\displaydate{paiva}}
+\counterwithout{lstlisting}{chapter}
+
+\newcommand\tn[1]{\textnormal{#1}}
+\newcommand\reaction[1]{\begin{equation}\ce{#1}\end{equation}}
+\newcommand\puna[1]{\textcolor{red}{#1}}
+\newcommand\no{\textcolor{red}{\ding{55}}}
+\newcommand\ok{\textcolor{ForestGreen}{\ding{51}}}
+\newcommand\ma{\textcolor{BurntOrange}{\ding{60}}}
+
+%page number always on the top right, clear the "chapter/section" head
+\pagestyle{myheadings}
+\markright{}
+%clear chapter "title" foot page
+\makeevenfoot{plain}{}{}{}
+\makeoddfoot{plain}{}{}{}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\maketitle
+\newpage
+%}
+%----------------------------------------------------------------------------------------
+%    Tiivistelmä{
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{tiivis}
+\LRCornerWallPaper{1}{footer}
+\begin{tabular}{ | p{4,7cm} | p{10,3cm} |}
+  \hline
+  Tekijä \newline
+  Otsikko \newline\newline 
+  Sivumäärä \newline
+  Aika
+  & 
+  \makeatletter
+  \@author \newline %TODO refer to {author}
+  \otsikkob \newline\newline %TODO refer to {title}
+  \makeatother
+ \pageref*{LastPage} sivua + \total{chapter} liitettä \newline %! if no appendices, risk to count total of chapter :D 
+ %\pageref{LastPage} pages + x appendices \newline %TODO dynamic numbering
+  \pvm		
+  \\ \hline
+  Tutkinto & \tutkinto
+  \\ \hline
+  Koulutusohjelma & \kohjelma
+  %\\ \hline
+  %Suuntautumisvaihtoehto & \suuntautumis
+  \\ \hline
+  Ohjaajat & \ohjaajat
+  \\ \hline
+  \multicolumn{2}{|p{15cm}|}{\begin{singlespacing}\vspace{-22pt}
+Opinnäytetyö tehtiin Tullilaboratorion Yleinen kemia 1 -osastolla Espoossa. Työn tarkoituksena oli kehittää eteenpäin uutta LC-MS/MS-menetelmää väriaineiden analysoimiseksi elintarvikkeista. Työssä validoitiin menetelmää virvoitusjuomamatriisille sekä kehitettiin näytteenkäsittelyä erityisesti vesiliukoisille värianalyyteille maustematriisista. Analyyttejä menetelmässä oli yhteensä 37, joista osa oli elintarvikevärejä ja osa elintarvikekäytössä kiellettyjä väriaineita. \newline
+
+Virvoitusjuomamatriisin näytteenkäsittelyyn käytettiin SPE-uuttoa ja maustematriisille käytettiin sekä asetonitriili- että vesiuuttoa. Vesiuutossa oli DNA:n puhdistamisessa käytettäviä mikrosentrifugisuodattimia, jotta mausteaines saataisiin poistettua liuoksesta. Analysointiin käytettiin Watersin UPLC-MS/MS-laitetta. Kolonnina oli Watersin UPLC C-18-kolonnia. Massaspektrometrillä käytettiin sähkösumutusionisaatiota (ESI+/ESI-) sekä usean reaktion seurantaa (MRM). \newline
+
+``Heikkoja'' eli pienen vasteen antavia analyyttejä olivat lähinnä vesiliukoiset yhdisteet. ``Vahvoja'' eli suuren vasteen antavia analyyttejä olivat rasvaliukoiset. ``Heikkojen'' analyyttien mittausalue oli suurimmalle osalle 0,05 - 2 mg/kg ja ``vahvojen'' analyyttien 0,01 - 0,2 mg/kg. Virvoitusjuomamatriisin todettiin vaikuttavan joidenkin analyyttien lineaarisuuteen heikentävästi. Virvoitusjuomamatriisissa määritysrajaksi saatiin analyytistä riippuen 0,05 - 1 mg/kg. Saannot määritysrajatesteissä olivat väliltä 20 - 116 \%. Tarkkuustesteillä suhteellinen keskihajonta näytteiden välillä oli 1 - 89 \% ja saannot olivat välillä 8 - 166 \%. Analyysin onnistuminen vaihteli paljon eri analyyteillä. \newline
+
+Menetelmä saatiin toimimaan lähes kaikkien analyyttien osalta, mutta vaatii vielä kehittämistä. Maustematriisin uutteiden yhdistelmällä saatiin analysoitua kaikki analyytit lukuun ottamatta kahta elintarvikeväriä. Virvoitusjuomamatriisilla saatiin pääsääntöisesti kaikki vesiliukoiset väriaineet analysoitua. \newline
+
+  \end{singlespacing}} \\[14cm] \hline
+  Avainsanat & \avainsanat
+  \\ \hline
+\end{tabular}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%    ABSTRACT
+%----------------------------------------------------------------------------------------
+
+
+\pagestyle{abstract}
+\begin{tabular}{ | p{4,7cm} | p{10,3cm} |}
+  \hline
+  Author \newline
+  Title \newline\newline 
+  Number of Pages \newline
+  Date
+  & 
+  \makeatletter
+  \@author \newline
+  \@title \newline\newline
+  \pageref*{LastPage} pages + \total{chapter} appendices \newline %! if no appendices, risk to count total of chapter :D
+  \IfLanguageName {finnish} {\foreignlanguage{english}{\longdate\@date}} {\@date}
+  \makeatother
+  \\ \hline
+  Degree & \metropoliadegree
+  \\ \hline
+  Degree Programme & \metropoliadegreeprogramme
+  %\\ \hline
+  %Specialisation option & \metropoliaspecialisation
+  \\ \hline
+  Instructors & \metropoliainstructors
+  \\ \hline
+  \multicolumn{2}{|p{15cm}|}{\begin{singlespacing}\vspace{-22pt}
+This thesis was made in the Department of Common Chemistry 1 in the Finnish Customs Laboratory in Espoo. The purpose of this thesis was to develop a new LC-MS/MS method for determining colorants from foodstuffs. The method was validated for a soft drink matrix, and the sample preparation of the spice matrix was developed especially for water-soluble colorants. There were 37 different colorants included in the method; some of them were food colorants, while others were colorants which are illegal to use in foodstuffs. \newline
+  
+Soft drink samples were prepared with SPE, and spice samples were prepared with acetonitrile and water extraction. Microcentrifuge filters, which are normally used for DNA purification, were used to filter spice samples to remove spice matter from the solution. For analyzing the samples a Waters UPLC-MS/MS and a Waters UPLC C-18 column were used. Mass spectrometry was used with electrospray ionization (ESI+/ESI-) and multiple reaction monitoring (MRM). \newline
+
+``Weak'' colorants, i.e. analytes with a low response, were primarily water-soluble compounds. ``Strong'' colorants, i.e. analytes with a high response, were fat-soluble compounds. For the majority of weak colorants, the measuring range was 0.05 - 2 mg/kg, while that of strong colorants was 0.01 - 0.2 mg/kg. The soft drink matrix affected linearity negatively. For soft drink matrix, the limit of quantification was between 0.05 mg/kg and 1 mg/kg. Yields for LOQ tests were between 20 - 116 \%. Relative standard deviation for accuracy was between 1 - 89 \%, and yields were between 8 - 166 \%. Success of the analysis varied according to different analytes. \newline
+
+The method was successfully functional with almost all of the analytes, but still needs further development. All of the analytes could be analyzed by combining the extracts of the spice matrix, except for two food colorants. Primarily, all the water-soluble colorants could be analyzed from soft drink matrix.
+
+
+  \end{singlespacing}} \\[14cm] \hline
+  Keywords & \metropoliakeywords
+  \\ \hline
+\end{tabular}
+\clearpage
+%}
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS{
+%----------------------------------------------------------------------------------------
+
+\makeevenhead{plain}{}{}{}
+\makeoddhead{plain}{}{}{}
+\pagestyle{empty} %remove page number in toc (if longer than 2 pages)
+\tableofcontents*
+\pagestyle{empty} %remove page number in toc (if longer than 1 pages)
+\clearpage
+\pagestyle{plain}
+
+%list of figure, tables comes here...
+%}
+%----------------------------------------------------------------------------------------
+%    Lyhenteet{
+%----------------------------------------------------------------------------------------
+
+\pagestyle{empty}
+\setlength{\parskip}{1cm}
+\IfLanguageName {finnish} {
+  \chapter*{Lyhenteet}
+  \cftaddtitleline{toc}{chapter}{Lyhenteet}{}
+} {
+  \chapter*{Abbreviation}
+  \cftaddtitleline{toc}{chapter}{Abbreviation}{}
+}
+\begin{table}[h]
+\setlength{\tabcolsep}{8pt}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{l p{12cm}}
+ACN & Asetonitriili \\
+ADI & \textit{Acceptable Daily Intake}, päivittäinen saanti \\
+API & \textit{Atmospheric pressure ionization}, ilmanpaineinen ionisointi \\
+EFSA & \textit{European Food Safety Authority}, Euroopan elintarviketurvallisuusvirasto \\
+ESI & \textit{Electrospray ionization}, sähkösumutusionisaatio \\
+FDA & \textit{Food and Drug Administration} \\
+LC-MS & \textit{Liquid Chromatography-Mass Spectrometry}, nestekromatografia-massaspektrometria\\
+MRM & \textit{Multiple reaction monitoring}, usean reaktion seuranta\\
+MS/MS & \textit{Tandem Mass Spectrometry}, tandemmassaspektrometria\\
+\%RSD & \textit{Relative standard deviation}, suhteellinen keskihajonta \\
+SPE & \textit{Solid-phase extraction}, kiinteäfaasiuutto \\
+$t_R$ & \textit{Retention time}, retentioaika \\
+UHPLC & \textit{Ultra High Performance Liquid Chomatography}, korkean erotuskyvyn 
+nestekromatografiatekniikka \\
+\end{tabular}
+\end{table}
+
+\newpage
+
+%page number always on top right; also for chapter "title" page
+\pagestyle{plain}
+\makeevenhead{plain}{}{}{\thepage}
+\makeoddhead{plain}{}{}{\thepage}
+\setcounter{page}{1} %page 1 should be Introduction
+
+\ClearWallPaper
+%}
+%----------------------------------------------------------------------------------------
+%	CONTENT
+%----------------------------------------------------------------------------------------
+
+\chapter{Johdanto} %{
+Tullilaboratoriolla on rutiinikäytössä menetelmä elintarvikevärien määrittämiseksi kvalitatiivisesti ohutlevykromatografialla sekä toinen menetelmä synteettisten elintarvikevärien määrittämiseksi kvantitatiivisesti nestekromatografilla. Kvantitatiivinen menetelmä soveltuu vain muutamalle elintarvikevärille. Tämän opinnäytetyön tavoitteena oli kehittää näiden menetelmien rinnalle LC-MS/MS-menetelmä, jolla saataisiin yhtäaikaisesti määritettyä useita eri väriaineita. Elintarvikevärien lisäksi tutkittiin myös elintarvikkeissa kiellettyjä väriaineita. Menetelmässä on mukana yhteensä 37 väriainetta. Tavoitteena on validoida menetelmä virvoitusjuomamatriisille. Menetelmän pohjatyö ja maustematriisin validointi on jo tehty Eeva Hietalan ja Suvi Ojanperän toimesta. Maustematriisin osalta tavoitteena kehittää ja validoida analytiikkaa erityisesti vesiliukoisille väriaineille.
+%}johdanto
+\chapter{Väriaineet} %{
+Teollisuusmaissa peräti 75 \% ruoasta prosessoidaan ennen kuin se tavoittaa kuluttajan. Ruoan prosessoinnissa saatetaan menettää elintarvikkeen alkuperäinen väri, joten teollisuudessa voidaan korvata hävinnyt väri synteettisillä tai luonnollisilla väriaineilla. Väriaineita voidaan myös käyttää voimistamaan elintarvikkeen luonnollista väriä, kuten esimerkiksi virvoitusjuomissa. Tämän lisäksi väriaineita voidaan käyttää värjäämään värittömiä elintarvikkeita, jotta ne olisivat houkuttelevampia kuluttajalle.~\cite[s. 225 - 226.]{deshpande2002handbook}
+
+\section{Väriaineita koskeva lainsäädäntö}
+Atsovärien käyttö elintarvikkeissa kiellettiin Suomessa jo 80-luvulla, mutta EU:hun liittymisen jälkeen ne ovat jälleen sallittuja. Euroopan elintarviketurvallisuusviranomainen EFSA aloitti vuonna 2008 projektin, jonka tarkoituksena on arvioida kaikki EU:ssa käytössä olevat lisäaineet uudelleen. Projekti lähti liikkeelle elintarvikeväreistä, ja niiden ADI-arvot tullaan arvioimaan uudelleen. Tähän mennessä \textit{kinoliinikeltaisen, paraoranssin, uuskokkiinin, tartratsiinin, karmosiinin} sekä \textit{alluranpunaisen} ADI-arvoja on laskettu alaspäin~\cite{efsa:projekti}. \textit{Paraoranssille} annettiin vuonna 2009 väliaikainen ADI-arvo 1 mg/kg/vrk, joka nostettiin arvoon 4 mg/kg/vrk heinäkuussa 2014~\cite{paraoranssi}. Vuodesta 2008 lähtien on elintarvikkeen pakkausmerkintöihin lisättävä ``voi vaikuttaa haitallisesti lasten aktiivisuustasoon ja heikentää tarkkaavaisuutta'', jos elintarvikkeessa on käytetty \textit{paraoranssia, kinoliinikeltaista, karmosiinia, alluranpunaista, tartratsiinia} tai \textit{uuskokkiinia}~\cite{eu:vari2}. \textit{Red 2g} -elintarvikeväri poistettiin sallittujen värien joukosta vuonna 2007, koska se metaboloituu nopeasti karsinogeeniseksi aniliiniksi~\cite{red2g}.
+
+Yhdysvalloissa ei ollut ennen 1900-lukua minkäänlaisia säädöksiä värien käyttöön elintarvikkeissa. Useat tuolloin käytetyistä aineista olivat myrkyllisiä ja johtivat ruokamyrkytykseen. 1900-luvun kuluessa väriaineita tutkittiin tarkemmin ja erinäisiä säädöksiä niiden rajoittamiseen tai kieltämiseen syntyi.~\cite[s. 226 - 228.]{deshpande2002handbook} Yhdysvalloissa sallittuja synteettisiä elintarvikevärejä on tällä hetkellä vain seitsemän~\cite{fda:vari1}. Sallittuja ovat myös luonnolliset väriaineet, joista tässä menetelmässä ovat mukana \textit{karmiinihappo} ja \textit{kurkumiini}~\cite{fda:vari2}. \textit{Amarantti}, joka on sallittu EU:ssa, on kielletty Yhdysvalloissa elintarvikekäytössä ja sallittu ainoastaan ulkoisesti lääke- ja meikkiteollisuudessa~\cite{fda:vari3}. Toisin kuin EU:ssa \textit{fast green fcf} on sallittu elintarvikekäytössä Yhdysvalloissa. FDA:n lausunto suositeltavasta synteettisen elintarvikevärin määrästä on seuraavanlainen: \begin{quote}...may be safely used for coloring foods (including dietary supplements) generally in amounts consistent with good manufacturing practice...\cite{fda:vari1}\end{quote} FDA ei siis varsinaisesti anna ylärajaa elintarvikevärien käytölle.
+\clearpage
+\section{Tutkitut väriaineet}
+Tutkituista 37:stä väriaineesta 16 on elintarvikekäyttöön sallittuja EU:ssa ja 21 kiellettyjä. Kielletyt väriaineet sisältävät muussa teollisuudessa käytettyjä väriaineita. 
+\subsection{Elintarvikevärit}
+Taulukossa~\ref{tab:sallitut} on listattuna työssä tutkitut elintarvikevärit ja niiden E-koodi, väri-indeksi-numero (\textit{Colour Index}), Yhdysvaltojen FDA:n nimitys ja ADI-arvo. Suluissa oleva FDA:n nimitys on käytöstä poistettu väriaine ja sen kieltovuosi. ADI-arvolla tarkoitetaan lisäainemäärää, jonka ihminen voi syödä päivässä ilman terveydellistä haittavaikutusta elämän aikana. ADI-arvo ilmoitetaan milligrammoina painokiloa kohti per vuorokausi \cite{foodadditive}.
+%\newline
+\begin{table}[htbp]
+    \centering
+    \caption{Sallitut elintarvikevärit~\cite{deshpande2002handbook, fda:vari1, eu:vari1, eu:vari3, eu:vari4}}
+    \begin{tabular}{llllll}
+        \toprule
+        &&&&& ADI-arvo \\
+        Väri  & Nimi      & E-koodi      &  CI     &    FDA   & (mg/kg/vrk) \\
+    \midrule
+        \fcolorbox[RGB]{0,0,0}{252,3,1}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Alluranpunainen & E129 & 16035 & FD\&C Red No. 40 & 7\\
+        \fcolorbox[RGB]{0,0,0}{102,0,51}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Amarantti & E123 & 16185 & (FD\&C Red No. 2, 1976)&0,15 \\
+        \fcolorbox[RGB]{0,0,0}{0,20,47}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Briljanttimusta & E151 & 28440 & -& 5\\
+        \fcolorbox[RGB]{0,0,0}{27,104,210}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Briljanttisininen & E133 & 42090 & FD\&C Blue No. 1& 6\\
+        \fcolorbox[RGB]{0,0,0}{245,60,118}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Erytrosiini & E127 & 45430 & FD\&C Red No. 3& 0,1\\
+        \fcolorbox[RGB]{0,0,0}{2,37,139}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Indigokarmiini & E132 & 73015 & FD\&C Blue No. 2 &5\\
+        \fcolorbox[RGB]{0,0,0}{150,0,24}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Karmiinihappo & E120 & 75470 & Carmine & 5\\
+        \fcolorbox[RGB]{0,0,0}{153,0,51}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Karmosiini & E122 & 14720 & -&4\\
+        \fcolorbox[RGB]{0,0,0}{255,255,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Kinoliinikeltainen & E104 & 47005 & - & 0,5\\
+        \fcolorbox[RGB]{0,0,0}{251,201,26}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Kurkumiini & E100 & 75300 & Turmeric & 3\\
+        \fcolorbox[RGB]{0,0,0}{255,102,51}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Paraoranssi & E110 & 15985 & FD\&C Yellow No. 6& 4\\
+        \fcolorbox[RGB]{0,0,0}{51,102,153}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Patenttisininen & E131 & 42051 & -&15\\
+        \fcolorbox[RGB]{0,0,0}{90,44,29}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Ruskea HT & E155 & 20285 & -& 1,5\\
+        \fcolorbox[RGB]{0,0,0}{255,221,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Tartratsiini & E102 & 19140 & FD\&C Yellow No. 5& 7,5\\
+        \fcolorbox[RGB]{0,0,0}{204,0,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Uuskokkiini & E124 & 16255 & -& 0,7\\
+        \fcolorbox[RGB]{0,0,0}{50,153,152}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Vihreä S & E142 & 44090 & -& 5\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:sallitut}
+\end{table}
+\clearpage
+Atsovärejä näistä ovat \textit{alluranpunainen, amarantti, briljanttimusta, karmosiini, paraoranssi, ruskea ht, tartratsiini} sekä \textit{uuskokkiini}. Atsovärit saavat nimensä atsoryhmästä (kuva ~\ref{fig:atso}), joka myös aiheuttaa atsovärien haitallisuuden. Atsovärien haitallisuus vaihtelee atsovärin rakenteen mukaan. Atsovärit voivat hajota elimistössä atsoryhmän kohdalta muodostaen ihmiselle haitallisia aromaattisia amiineja. \cite[s. 75.]{hutzinger1980handbook}
+%\newline
+\begin{figure}[htbp]
+\centering
+\chemfig{R-[:30]N=N-[:30]R'}
+\caption{Atsoryhmä}
+\label{fig:atso}
+\end{figure}
+
+\subsection{Kielletyt väriaineet}
+
+Taulukossa~\ref{tab:kielletyt} on listattuna työssä tutkitut väriaineet, joiden käyttö on kielletty elintarvikkeissa EU:ssa. Suluissa oleva FDA:n nimitys on käytöstä poistettu väriaine ja sen kieltovuosi. 2000-luvun alkupuolella Isossa-Britanniassa löydettiin jäämiä kielletystä \textit{sudan I} -väriaineesta. Tämän johdosta EU:n ulkopuolelta tulevilta chili-tuotteilta alettiin vaatia analyysitodistuksia, etteivät ne sisällä kyseistä väriainetta. Vuonna 2005 satunnaisia \textit{sudan I} testejä tehtiin myös palmuöljyä ja kurkumaa sisältäville elintarvikkeille. Ennen kyseisten elintarvikkeiden tuontia EU:n alueelle, täytyi nämä todeta turvallisiksi väriaineiden \textit{sudan I, II, III} ja \textit{IV} kohdalta. Näihin aikoihin alettiin löytämään myös muita kiellettyjä väriaineita, kuten \textit{para red, rhodamine b} ja \textit{orange II}. \cite[s. 220 - 225.]{doeg2006crisis}
+\begin{table}[htbp]
+    \centering
+    \caption{Kielletyt väriaineet~\cite{deshpande2002handbook, fda:vari1, eu:vari1, colorindex}}
+    \begin{tabular}{lllll}
+        \toprule
+       % &&&&& ADI-arvo \\
+        Väri  & Nimi  & E-koodi & CI & FDA \\
+        \midrule
+        \fcolorbox{black}{Yellow}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Acid yellow 36 & - & 13065 & -\\
+        \fcolorbox{black}{Yellow}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Auramine & - & 41000B& -\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Chrysoidine G & - & 11270& -\\
+        \fcolorbox{black}{Yellow}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Fast garnet GBC & - & 11160B& -\\
+        \fcolorbox[RGB]{0,0,0}{46,139,87}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Fast green FCF & E143 & 42053 & FD\&C Green No. 3\\
+        \fcolorbox{black}{Orange}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Oil orange SS & - & 12100 & (FD\&C Orange No. 2, 1956)\\
+        \fcolorbox{black}{Orange}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Orange II & - & 15510&-\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Para red & - & 12070&-\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Red 2 G & E128 & 18050&-\\
+        \fcolorbox[RGB]{0,0,0}{254,35,139}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Rhodamine B & - & 45170&-\\
+        \fcolorbox[RGB]{0,0,0}{253,187,66}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan I & -  & 12055 & - (1918)\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan II & - & 12140 & (FD\&C Red No. 32, 1956)\\
+        \fcolorbox[RGB]{0,0,0}{234,0,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan III & - & 26100&-\\
+        \fcolorbox[RGB]{0,0,0}{204,0,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan IV & - & 26105&-\\
+        \fcolorbox{black}{Orange}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan orange G & - & 11920&-\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan red 7B & - & 26050&-\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan red B & - & 26110&-\\
+        \fcolorbox{black}{Red}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan red G & - & 12150&-\\
+        \fcolorbox[RGB]{0,0,0}{232,232,0}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Sudan yellow & - & 11020&-\\
+        \fcolorbox[RGB]{0,0,0}{237,2,45}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Toluidine  red & - & 12120&-\\
+        \fcolorbox{black}{Yellow}{\fboxrule0pt\boxframe {16pt}{8pt}{1pt}} & Yellow 2 G & - & 18965&-\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:kielletyt}
+\end{table}
+%}väriaineet
+\newpage
+\chapter{Analyysitekniikat} %{
+Tässä osiossa käydään läpi työssä käytetyt analyysitekniikat.
+\section{LC-MS/MS-tekniikka}
+
+UHPLC-laitteisto parantaa erotuskykyä sekä herkkyyttä verrattuna HPLC-laitteistoon. Tämän takia UHPLC:tä käytetään yleensä massaspektrometrin kanssa ja tällöin usean kvadrupolin kera. UHPLC myös lyhentää menetelmien ajoaikoja huomattavasti. UHPLC rajoittaa kuitenkin käytettävissä olevia eluentteja, koska UHPLC:n erittäin korkea paine voi vaikuttaa niiden käyttäytymiseen liikkuvana faasina.~\cite[s. 737.]{nollet2012food}
+
+Sähkösumutusionisaatio (\textit{electrospray ionization}, ESI) on yksi nestekromatografin kanssa käytettävistä ilmanpaineessa tapahtuvista ionisaatiokeinoista (\textit{atmospheric pressure ionization}, API). Sähkösumutusionisaatiossa päästään eroon nestekromatografilta tulevasta liuoksesta kuljettamalla se lyhyen teräksisen kapillaarin läpi, jonka päässä on korkea posiitivinen tai negatiivinen jännite. Voimakas sähkökenttä kapillaarin päässä aiheuttaa melkein välittömän haihtumisen kapillaarin läpi tulevalle liuokselle. Liuoksesta muodostuu aerosoli, jonka pisarat pienenevät pienenemistään, kunnes jäljelle jää varautuneita ioneja ja neutraaleja molekyylejä. Varautuneet ionit kulkeutuvat varauksellisen kartion (\textit{skimmer}) läpi massaspektrometrille. Watersin käyttämässä \textit{Z-spray}-tekniikassa ionisuhku muodostaa ``Z-muotoisen'' kulkureitin, koska normaalista poiketen \textit{skimmer}-kartio ei ole kapillaarin kanssa samansuuntainen, vaan 90 asteen kulmassa kapillaariin nähden. Kuvassa~\ref{fig:zspray} on esitettynä \textit{Z-spray}-ionisaatio. \textit{Z-spray} vähentää neutraalien molekyylien joutumista massaspektrometriin. Sähkösumutusionisaatio tuottaa usein monivarautuneita ioneja, jotka mahdollistavat isojen molekyylien mittaamisen tarkasti. \cite[s. 55 - 66.]{herbert2002mass}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.75\textwidth]{zspray}
+\caption{\textit{Z-spray}-ionisaatio \cite[s. 66]{herbert2002mass}}
+\label{fig:zspray}
+\end{figure}
+
+%\newpage
+Usean reaktion seuranta (\textit{Multiple reaction monitoring}, MRM) on yksi kolmoiskvadrupolitekniikoista (QqQ). MRM:ää käytetään kvantitointiin sekä varmistamiseen. Kuvassa~\ref{fig:mrm} nähdään MRM-tekniikan toimintatapa. Ensimmäinen kvadrupoli (MS1) päästää valitun molekyyli-ionin läpi törmäytyskammioon (\textit{Collision cell}). Törmäytyskammiossa molekyyli-ionista saadaan törmäyttämällä apukaasun kanssa fragmentoitua tuote-ioneja. Saadut tuote-ionit jatkavat matkaa kolmannelle kvadrupolille (MS2), jolla valitaan tuote-ioneista merkittävimmät. Lopulta valitut tuote-ionit päättävät matkansa detektorille. Suurimman vasteen antavaa tuote-ioni käytetään yhdisteen kvantitointiin ja muita saatuja tuote-ioneja varmistamiseen. \cite[s. 206 - 207.]{wang2011chemical}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{MRM.PNG}
+  \caption{Usean reaktion seuranta eli MRM}
+  \label{fig:mrm}
+\end{figure}
+
+Menetelmän kokonaiskromatogrammi löytyy liitteestä~\ref{appx:kromatogrammi}. Kromatogrammi ei ole skaalassa eli heikon vasteen antavia analyyttejä on vahvistettu, jotta ne näkyisivät kromatogrammissa. Vesiliukoiset analyytit eluoituvat nopeimmin käytetyllä menetelmällä, koska gradientti alkaa vesipitoisena. Rasvaliukoiset analyytit eluoituvat ajon loppuvaiheilla, kuten kromatogrammista nähdään.
+
+\newcommand{\wtf}[1]{}
+\wtf{
+
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[trim=0cm 0cm 0cm 0cm, clip=true, width=\textwidth]{fluidics}
+  \label{fig:fluid}
+  \caption{Fluidics}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[trim=0cm 0cm 0cm 0cm, clip=true, width=\textwidth]{rakenne}
+  \label{fig:rakenne}
+  \caption{Rakenne}
+\end{figure}
+}
+
+\section{Kiinteäfaasiuutto}
+Kiinteäfaasiuutto (\textit{solid phase extraction}, SPE) on näytteenkäsittelymenetelmä, jolla saadaan näyte puhdistettua ei-halutuista aineista, analyysiä haittaavista aineista tai matriisiperäisistä epäpuhtauksista. Tämä tapahtuu esimerkiksi uuttopatruunoilla, joiden sorbenttimateriaali pidättää halutut yhdisteet tai päästää ne suoraan läpi patruunasta. \cite[s. 99.]{spe} Tässä menetelmässä käytettiin Watersin Oasis WAX -uuttopatruunoita, jotka ovat käänteisfaasi/heikko anioninvaihto -patruunoita. Kyseiset patruunat soveltuvat vahvojen happojen pidättämiseen. Uuttomenetelmä perustuu artikkeliin \cite{watersolubleazo}, jota käytettiin virvoitusjuomamenetelmän pohjana. Artikkelin uuttomenetelmä on suoraan Watersin kyseisille uuttopatruunoille ohjeistama \textit{``Oasis 2x4''} -menetelmä \cite{WAX}. Uuttomenetelmää kuitenkin muutettiin Watersin kaavion mukaisesti, koska osa analyyteistä eluoitui liian aikaisin.
+\newpage
+%}analyysitekniikat
+\chapter{Materiaalit ja menetelmät} %{
+Tässä osiossa esitetään käytetyt reagenssit, materiaalit sekä laitteet.
+\section{Reagenssit}
+Menetelmässä käytetyt reagenssit:
+\begin{itemize}\vspace{-17pt} 
+    \item Asetonitriili, VWR Hipersolv 20048.320, lot 13A002845, HPLC-laatu
+    \item Metanoli, Sigma-Aldrich Chromasolv $\geq$99,9\%, lot SZBD011MV, HPLC-laatu
+    \item 25 \% Ammoniakki, Merck 1054321000, lot K41851032
+    \item 98-100 \% Muurahaishappo, Merck, lot K25132664
+    \item Ammoniumasetaatti, Sigma-Aldrich, 14267-25G
+    \item Väriaineanalyytit (liite~\ref{appx:analyytit})
+\end{itemize}
+\vspace{-17pt} 
+\wtf{
+\begin{table}[htbp]
+  \centering
+  \caption{Väriaineanalyytit}
+    \begin{tabular}{rllrr}
+    \toprule
+    CAS   & Nimi  & Valmistaja & Erä\# & Puhtaus (\%) \\
+    \midrule
+    587-98-4    & Acid Yellow 36        & Dr. Ehrenstorfer GmbH & 81203     & 99 \\
+    25956-17-6  & Alluranpunainen       & Dr. Ehrenstorfer GmbH & 80917     & 83 \\
+    915-67-3    & Amarantti             & Dr. Ehrenstorfer GmbH & 20306     & 99 \\
+    492-80-8    & Auramine              & Sigma-Aldrich         & 1399697V  & 97,2 \\
+    2519-30-4   & Briljanttimusta       & Dr. Ehrenstorfer GmbH & 70830     & 99 \\
+    3844-45-9   & Briljanttisininen     & Dr. Ehrenstorfer GmbH & 20118     & 85 \\
+    532-82-1    & Chrysoidine G         & Cunnersdorf           & 771194    & 98,1 \\
+    16423-68-0  & Erytrosiini           & Dr. Ehrenstorfer GmbH & 91209     & 88 \\
+    97-56-3     & Fast garnet GBC       & Sigma-Aldrich         & MKBJ7135V & 97 \\
+    2353-45-9   & Fast green FCF        & Dr. Ehrenstorfer GmbH & 90406     & 96 \\
+    860-22-0    & Indigokarmiini        & Dr. Ehrenstorfer GmbH & 10825     & 92 \\
+    1260-17-9   & Karmiinihappo         & Dr. Ehrenstorfer GmbH & 90717     & 98,5 \\
+    3567-69-9   & Karmosiini            & Dr. Ehrenstorfer GmbH & 10504     & 99 \\
+    8004-92-0   & Kinoliinikeltainen    & Dr. Ehrenstorfer GmbH & 01124     & 97,1 \\
+    458-37-7    & Kurkumiini            & Dr. Ehrenstorfer GmbH & 11128     & 95 \\
+    2646-17-5   & Oil orange SS         & Sigma-Aldrich         & 1405477V  & 98,7 \\
+    633-96-5    & Orange II             & Dr. Ehrenstorfer GmbH & 00312     & 96,2 \\
+    2783-94-0   & Paraoranssi           & Dr. Ehrenstorfer GmbH & 91001     & 87 \\
+    6410-10-2   & Para Red              & Dr. Ehrenstorfer GmbH & 01119     & 98 \\
+    3536-49-0   & Patenttisininen       & Sigma-Aldrich         & BCBD1139V & 97,6 \\
+    3734-67-6   & Red 2G                & Dr. Ehrenstorfer GmbH & 70830     & 90,0 \\
+    81-88-9     & Rhodamine B           & Dr. Ehrenstorfer GmbH & 10221     & 99 \\
+    4553-89-3   & Ruskea HT             & Dr. Ehrenstorfer GmbH & 91120     & 100 \\
+    842-07-9    & Sudan I               & Dr. Ehrenstorfer GmbH & 90827     & 91 \\
+    3118-97-6   & Sudan II              & Dr. Ehrenstorfer GmbH & 10615     & 87 \\
+    85-86-9     & Sudan III             & Dr. Ehrenstorfer GmbH & 00421     & 96 \\
+    85-83-6     & Sudan IV              & Dr. Ehrenstorfer GmbH & 91102     & 87 \\
+    2051-85-6   & Sudan orange G        & Dr. Ehrenstorfer GmbH & 20124     & 98,6 \\
+    6368-72-5   & Sudan red 7B          & Dr. Ehrenstorfer GmbH & 00118     & 89 \\
+    3176-79-2   & Sudan red B           & Dr. Ehrenstorfer GmbH & 00208     & 90 \\
+    1229-55-6   & Sudan red G           & Dr. Ehrenstorfer GmbH & 00118     & 93,5 \\
+    60-11-7     & Sudan yellow          & Dr. Ehrenstorfer GmbH & 00629     & 98,5 \\
+    1934-21-0   & Tartratsiini          & Dr. Ehrenstorfer GmbH & 90813     & 90 \\
+    2425-85-6   & Toluidine red         & Dr. Ehrenstorfer GmbH & 10127     & 68 \\
+    2611-82-7   & Uuskokkiini           & Dr. Ehrenstorfer GmbH & 91120     & 70 \\
+    3087-16-9   & Vihreä S              & Sigma-Aldrich         & BCBG0492V & 98,5 \\
+    6359-98-4   & Yellow 2G             & Sigma-Aldrich         & BCBF5073V & 98,2 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:analyytit}%
+\end{table}%
+}
+\section{Materiaalit}
+Menetelmässä käytetyt materiaalit:
+\begin{itemize}\vspace{-17pt} 
+    \item Käänteisfaasi SPE-uuttopatruunoita, Waters Oasis WAX 3 cc Cartridge 60 mg 30 µm, Part 186002490, Lot 014533155A, Sorbent batch 0145
+    \item Sentrifugisuodatinputkia, Millipore Centrifugal Filter Units, Amicon Ultra 0,5 ml, Ultracel – 30K membrane, Lot R1EA80161
+\end{itemize}
+\vspace{-17pt} 
+\section{Laitteet}
+Menetelmässä käytetyt laitteet:
+\begin{itemize}\vspace{-17pt} 
+    \item Waters ACQUITY UPLC$^\text{\textregistered}$, nestekromatografi
+        \begin{itemize}
+            \item Kolonni: Waters ACQUITY UPLC$^\text{\textregistered}$ HSS T3 1,8 $\micro$m, C-18, (2,1 x 100 mm), part 186003539, lot 0144330081
+            \item Esikolonni: Waters ACQUITY UPLC$^\text{\textregistered}$ HSS T3 1,8 $\micro$m, VanGuard Pre-Column (2,1 x 5 mm), part 186003976, lot 0146331692
+        \end{itemize}
+    \item Waters XEVO TQ MS, massadetektori
+    \item Ultraäänihaude
+    \item Supelco Visiprep DL, SPE-kammio
+    \item Pierce Reacti-Vap, typpihaihdutin
+    \item Eppendorf 5810R, sentrifugi
+    \item Eppendorf 5417C, mikrosentrifugi
+\end{itemize}
+\vspace{-17pt} 
+%\chapter{Työn suoritus}
+
+\section{Näytteenkäsittely}
+Näytteenkäsittelyosiossa käsitellään sekä virvoitusjuomamatriisin että maustematriisin näytteenkäsittely. Virvoitusjuomamatriisi esikäsiteltiin SPE-uutolla ja maustematriisi vesi- ja ACN-uutoilla. Asetonitriiliuutto on kehitetty ja validoitu Eeva Hietalan toimesta.
+
+\subsection{Virvoitusjuoma}
+Virvoitusjuomanäytteistä poistettiin hiilihappo ultraäänihauteella. SPE-patruunat kunnostettiin 2 ml:lla metanolia sekä 2 ml:lla vettä. Tämän jälkeen patruunaan lisättiin 2 ml näytettä. Näytteen lisäyksen jälkeen patruuna huuhdeltiin 2 ml:lla 2 \% muurahaishappoa. Lopulta näyte eluoitiin patruunasta 2 ml:lla metanolia sekä 2 ml:lla 5 \% ammoniakkia metanolissa. Virtaus oli koko kiinteäfaasiuuton ajan alle 1 ml/min. Eluoinnin jälkeen suoritettiin liuottimenvaihto kuivaamalla näyte ensin typpihaihduttimella ja sen jälkeen liuottamalla kuivattu näyte 2 ml:aan 50 \% metanoli-vesiseokseen. Kuvassa~\ref{fig:spe} on esitetty virvoitusjuoman SPE-käsittely.
+
+\tikzstyle{palikka} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, text width=3cm, draw=black, fill=ForestGreen!50]
+\tikzstyle{palikka2} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, text width=7cm, draw=black, fill=ForestGreen!50]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{palikka3} = [rectangle, rounded corners, minimum width=0.449\textwidth, minimum height=1cm, text centered, text width=0.449\textwidth, draw=black, fill=red!50]
+\tikzstyle{palikka4} = [rectangle, rounded corners, minimum width=0.449\textwidth, minimum height=1cm, text centered, text width=0.449\textwidth, draw=black, fill=blue!50]
+\tikzstyle{palikka5} = [rectangle, rounded corners, minimum width=0.449\textwidth, minimum height=1cm, text centered, text width=0.449\textwidth, draw=black, fill=violet!50]
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=3.75cm]
+\node[label=90:Kunnostaminen] (Kunnostaminen) [palikka] {2 ml \ce{MeOH} 2 ml \ce{H2O}};
+\node[label=90:Lataus] (Lataus) [palikka, right of=Kunnostaminen] {2 ml näyte};
+\node[label=90:Huuhtelu] (Huuhtelu) [palikka, right of=Lataus] {2 ml 2 \% FA + \ce{H2O}};
+\node[label=90:Eluointi] (Eluointi) [palikka, right of=Huuhtelu] {2 ml MeOH 2 ml 5 \% \ce{NH3} + MeOH};
+\node (Kuivaus) [palikka2, below right of=Lataus, yshift=0.75cm] {Kuivaus \ce{N2} \\ Liuotetaan 2 ml 50 \% MeOH + \ce{H2O}};
+%\node (Kuivaus) [palikka2, right of=Eluointi] {Kuivaus \ce{N2} Liuotetaan 2 ml 50 \% MeOH Suodatetaan 0,45 $\micro$m Analysointi 24 h kuluessa};
+\draw [arrow] (Kunnostaminen) -- (Lataus);
+\draw [arrow] (Lataus) -- (Huuhtelu);
+\draw [arrow] (Huuhtelu) -- (Eluointi);
+\draw [arrow] (Eluointi) |- (Kuivaus);
+\end{tikzpicture}
+\caption{Käytetty SPE-menetelmä virvoitusjuomamatriisille}
+\label{fig:spe}
+\end{figure}
+
+\subsection{Mauste}
+Maustenäytteelle käytettiin asetonitriili- ja vesiuuttoa, jotta saataisiin sekä vesiliukoiset että rasvaliukoiset väriaineet uutettua näytteestä. Asetonitriiliuutossa maustetta punnittiin 1 g polypropyleeniputkeen ja putkeen lisättiin 2,5 ml ultrapuhdasta vettä. Mausteen annettiin imeytyä 15 min. Imeytymisen jälkeen lisättiin 10 ml asetonitriiliä ja putkea ravistettiin käsin 30 s. Ravistelun jälkeen putkea sonikoitiin 30 min, jotta mahdollisimman paljon väriainetta liukenisi maustematriisista. Sonikoinnin jälkeen putkea sentrifugoitiin 5 min nopeudella 4000 rpm. Vesiuutossa punnittiin myös 1 g näytettä polypropyleeniputkeen ja lisättiin 10 ml ultrapuhdasta vettä ja annettiin imeytyä 15 - 30 min. Imeytymisen jälkeen näytettä pipetoitiin sentrifugisuodatinputkeen 300 $\micro$l ja putkea sentrifugoitiin mikrosentrifugilla 10 min nopeudella 10 000 rpm. Lopulta näytteet yhdistettiin pipetoimalla 100 $\micro$l uutteita suoraan sisäputkelliseen UHPLC-vialiin. Näytettä laimennettiin, jos näyte oli väriltään todella vahva. Kuvassa~\ref{fig:asr} on kuvattu sekä asetonitriiliuutto että vesiuutto maustenäytteille.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[node distance=8cm]
+\node[label=90:ACN-uutto] (vasen1) [palikka3] {Punnitse 1 g maustetta 50 ml:n polypropyleeniputkeen};
+\node (vasen2) [palikka3, below of=vasen1, yshift=6cm] {Lisää 2,5 ml ultrapuhdasta vettä};
+\node (vasen3) [palikka3, below of=vasen2, yshift=6cm] {Lisää 10 ml asetonitriiliä};
+\node (vasen4) [palikka3, below of=vasen3, yshift=6cm] {Sonikoi 30 min};
+\node (vasen5) [palikka3, below of=vasen4, yshift=6cm] {Sentrifugoi 5 min 4000 rpm};
+\node (keski1) [palikka3, left color=red!50,right color=blue!50] at (4,-10) {Pipetoi sisäputkelliseen vialiin 100 $\micro$l molempia uutteita};
+\node (keski2) [palikka5, below of=keski1, yshift=6cm] {Laimenna tarvittaessa};
+\node[label=90:\ce{H2O}-uutto] (oikea1) [palikka4, right of=vasen1] {Punnitse 1 g maustetta 50 ml:n polypropyleeniputkeen};
+\node (oikea2) [palikka4, below of=oikea1, yshift=6cm] {Lisää 10 ml ultrapuhdasta vettä};
+\node (oikea3) [palikka4, right of=vasen4] {Pipetoi 300 $\micro$l näytettä sentrifugifiltteriputkeen};
+\node (oikea4) [palikka4, below of=oikea3, yshift=6cm] {Sentrifugoi 10 min 10000 rpm};
+
+\draw [arrow] (vasen1) -- (vasen2);
+\draw [arrow] (vasen2) -- node[anchor=west] {Anna imeytyä 15 min} (vasen3);
+\draw [arrow] (vasen3) -- node[anchor=west] {Ravistele käsin 30 s} (vasen4);
+\draw [arrow] (vasen4) -- (vasen5);
+\draw [arrow] (oikea1) -- (oikea2);
+\draw [arrow] (oikea2) -- node[text width=3cm, anchor=west, align=center] {Ravistele 30 s\\ Anna imeytyä 15-30 min}  (oikea3);
+\draw [arrow] (oikea3) -- (oikea4);
+\draw [arrow] (vasen5) |- (keski1);
+\draw [arrow] (oikea4) |- (keski1);
+\draw [arrow] (keski1) -- (keski2);
+\end{tikzpicture}
+\caption{Asetonitriili- sekä vesiuutto maustematriisille}
+\label{fig:asr}
+\end{figure}
+
+\newpage
+\section{LC-MS/MS-parametrit}
+Menetelmässä käytetyt massaparametrit:
+\begin{itemize}\vspace{-17pt} 
+\item Sisäänmenokartion (\textit{Cone}) ja törmäyskammion (\textit{Collision}) jännite analyytin mukaan (liite~\ref{appx:parametrit}, punaisella merkitty kvantitointi-ioni)
+\item Ionilähteen lämpötila 150\celsius
+\item Desolvaatio lämpötila 500\celsius
+\item Desolvaatiokaasun virtaus 1000 l/h (\ce{N2})
+\item Sisäänmenokartion kaasun virtaus 30 l/h (\ce{N2})
+\item Törmäyskaasun virtaus 0,15 ml/min (Argon)
+\item Kolonniuunin lämpötila 45\celsius
+\item Näytteensyöttäjä huoneenlämpötilassa
+\end{itemize}\vspace{-17pt} 
+
+Eluentteina käytettiin 5 mM ammoniumasetaattipuskurin sekä asetonitriilin sekoituksia. Ammoniumasetaattipuskuri sisälsi myös 0,1 \% muurahaishappoa. A-eluentti koostui 10 \% ACN ja 90 \% puskurista ja B-eluentti koostui 90 \% ACN ja 10 \% puskurista. Eluentteja säilytettiin jääkaapissa ja uusittiin kahden viikon välein tai tarvittaessa. Taulukossa ~\ref{tab:gradientti} on listattu käytetty gradientti ajon aikana.
+
+\begin{table}[htbp]
+  \centering
+  \caption{LC-MS/MS-laitteen gradientti}
+    \begin{tabular}{rrrr}
+    \toprule
+    Aika & Virtaus & & \\
+    (min) & (ml/min) & A (\%) & B (\%) \\
+    \midrule
+    0     & 0,3   & 95    & 5 \\
+    2     & 0,3   & 95    & 5 \\
+    10    & 0,3   & 50    & 50 \\
+    18    & 0,3   & 0     & 100 \\
+    26    & 0,3   & 0     & 100 \\
+    28    & 0,3   & 90    & 10 \\
+    33    & 0,3   & 90    & 10 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:gradientti}%
+\end{table}%
+%}materiaalit
+
+\chapter{Tulokset} %{
+Tulokset-osiossa lasketaan ja kootaan yhteen saadut mittaustulokset. Virvoitusjuomamatriisin kohdalla käytössä ei ollut näytteitä, joten kaikki mittaukset tehtiin itsetehdyillä ``spiikatuilla'' kontrollinäytteillä.
+\section{Mittausalue ja lineaarisuus}
+Mittausaluetta tutkittiin tekemällä väriainestandardit, joista piirrettiin standardisuorat. Standardisuorat löytyvät liitteestä~\ref{appx:suorat}. Virvoitusjuomamatriisin kohdalla mitattiin myös matriisiin tehdyt standardit, joiden avulla tutkittiin matriisin vaikutusta lineaarisuuteen. Analyyttien mittausaluetta testattiin välillä 0,005-2 mg/kg. ``Heikkoja'' eli pienen vasteen antavia analyyttejä olivat lähinnä vesiliukoiset yhdisteet. ``Vahvoja'' eli suuren vasteen antavia analyyttejä olivat rasvaliukoiset. ``Heikkojen'' analyyttien mittausalue oli 0,05 - 2 mg/kg ja ``vahvoille'' analyyteille mittausalue oli 0,01 - 0,2 mg/kg. Osalle ``heikoista'' analyyteistä mittausalue oli 1 - 2 mg/kg määritysrajasta johtuen.
+\section{Matriisin vaikutus}
+Matriisin vaikutusta virvoitusjuomamatriisilla tutkittiin tekemällä standardisuorat virvoitusjuomaan ja saatuja standardisuoria verrattiin liuotinsuoriin suorien kulmakertoimia vertaamalla. Suorien kuuluisi olla yhdensuuntaisia, jotta voitaisiin todeta, ettei matriisi vaikuta mittaustuloksiin. Standardisuorat analyyteille metanolissa, matriisissa ja suodatettuna matriisissa löytyvät liitteestä~\ref{appx:suorat}. Laskettiin metanolisuoran ja matriisisuorien kulmakertoimien eroavaisuus, jotka ovat esitettyinä taulukossa~\ref{tab:matriisi}. Kaikkia väriaineita ei löydy taulukosta, koska niille ei saatu tehtyä virvoitusjuomassa standardisuoraa.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Virvoitusjuomamatriisin ja metanoliin tehtyjen standardisuorien kulmakertoimien prosentuaalinen ero}
+    \begin{tabular}{lrr}
+    \toprule
+    & \multicolumn{2}{c}{Kulmakertoimien ero (\%)} \\
+    \cmidrule{2-3}
+    Analyytti & Matriisi & Matriisi, suodatettu \\
+    \midrule
+    Acid Yellow 36 & 19    & 3 \\
+    Alluranpunainen & 8     & 1 \\
+    Briljanttisininen & 4     & 5 \\
+    Erytrosiini & 41    & 36 \\
+    Kurkumiini & 96    & 95 \\
+    Orange II & 10    & 4 \\
+    Paraoranssi & 28    & 18 \\
+    Patenttisininen & 8     & 1 \\
+    Red 2 G & 7     & 2 \\
+    Tartratsiini & 50    & 25 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:matriisi}%
+\end{table}%
+
+Mitattiin myös useita rinnakkaisia nollanäytteitä ja tutkittiin, antaako pelkkä matriisi minkäänlaista vastetta millekään analyytille. Nollanäytteinä käytettiin 7UP-virvoitusjuomaa, joka käsiteltiin SPE-uutolla samalla tavoin kuin muutkin näytteet. Nollanäytteet eivät antaneet merkittävää vastetta yhdenkään analyytin kohdalla.
+
+\section{Määritysraja}
+Määritysraja määritettiin mittaamalla viisi rinnakkaista lisäysnäytettä, kunnes saatiin suhteellinen keskihajonta (\%RSD) pienemmäksi kuin 30 \%. Suhteellinen keskihajonta laskettiin kaavalla~\eqref{eq:RSD}, jossa $s$ on näytteiden pinta-alojen keskihajonta ja $\bar{x}$ on näytteiden pinta-alojen keskiarvo. Saantoprosentti laskettiin vertaamalla rinnakkaisnäytteen pinta-alaa standardiliuoksen pinta-alaan kaavan~\eqref{eq:saanto} mukaisesti. Mukana mittauksissa olivat vain vesiliukoiset väriaineet, koska rasvaliukoiset väriaineet eivät liuenneet virvoitusjuomamatriisiin. Taulukossa~\ref{tab:RSD} ovat listattuna lasketut \%RSD:t sekä saannot. Saantoprosentti on merkitty viiden rinnakkaisnäytteen keskiarvona.
+\begin{align}
+\tn{\%RSD} &= \frac{s}{\bar{x}}\cdot100\%\label{eq:RSD} \\
+\tn{Saanto-\%} &= \frac{A_{\tn{näyte}}}{A_{\tn{std}}}\cdot100\%\label{eq:saanto}
+\end{align}
+\begin{table}[htbp]
+  \centering
+  \caption{Vesiliukoisten väriaineiden lisäysnäytteiden \%RSD sekä Saanto-\%}
+    \begin{tabular}{lrrr}
+    \toprule
+    & Pitoisuus & & \\
+    Analyytti & (mg/kg) & \%RSD & Saanto-\% \\
+    \midrule
+    Acid Yellow 36 & 0,05  & 26,0  & 108,2 \\
+    Alluranpunainen, ESI+ & 0,05   & 10,5  & 74,6 \\
+    Amarantti, ESI+ & 0,5   & 18,4  & 84,9 \\
+    Briljanttisininen & 0,05   & 6,8   & 99,9 \\
+    Erytrosiini & 0,05 & 13,2  & 41,1 \\
+    Fast garnet GBC & 0,05    & 7,6 &	81,6 \\
+    Fast green FCF & 1  & 39,2 &	105,1 \\
+    Indigokarmiini & 0,5  &  16,6  & 89,1 \\
+    Karmiinihappo & 0,5  & 17,9  & 115,8 \\
+    Karmosiini, ESI- & 1  & 38,3  & 48,2 \\
+    Kinoliinikeltainen, ESI+ & 1  & 54,5  & - \\
+    Kurkumiini & 0,05    &  16,7  & 213,4 \\
+    Orange II & 0,05     & 4,9   & 95,3 \\
+    Paraoranssi, ESI- & 0,5   & 20,7  & 54,1 \\
+    Patenttisininen, ESI+ & 0,05 & 1,1   & 91,8 \\
+    %Patenttisininen - & 50     & 18,4  & 129,3 \\
+    Red 2G, ESI+ & 0,05 & 6,8   & 90,0 \\
+    Rhodamine B & 0,05 & 1,4 & 96,0 \\
+    %Red 2G - &       & 464,10 & 359,04 & 14,9  & 84,8 \\
+    Sudan orange G & 0,5 & 18,8  & 20,1 \\
+    Tartratsiini, ESI+ & 0,05 & 11,2  & 79,3 \\
+    Uuskokkiini, ESI+ & 0,5 & 16,7  & 53,4 \\
+    Vihreä S & 1 &  28,0  & 82,0 \\
+    Yellow 2 G & 1 &  72,6  & 42,8 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:RSD}%
+\end{table}%
+
+
+\section{Standardien säilyvyys}
+Standardien säilyvyyttä tutkittiin mittaamalla jokaisella mittauskerralla sama standardiliuos ja mittauksen tuloksia taulukoitiin ja laskettiin eri muuttujille suhteellinen keskihajonta Mittauksia on ajalta 28.08.2013 - 23.10.2013 ja mittauksia on yhteensä 14 kpl. Taulukko tuloksista löytyy liitteestä~\ref{appx:storage}. Samalla tutkittiin eri analyyttien retentioaikojen vaihtelua.
+
+\section{Tarkkuus}
+Tarkkuus jakautuu oikeellisuuteen ja täsmällisyyteen. Oikeellisuutta kuvaa, kuinka lähellä mittaustulokset ovat oikeaa pitoisuutta ja täsmällisyys kuvaa, kuinka paljon hajontaa on mittaustulosten välillä. Tarkkuutta tutkittiin mittaamalla itse tehtyjä kontrollinäytteitä kolmella eri pitoisuustasolla. Varmennettuja vertailumateriaaleja ei ollut käytettävissä. Kontrollinäytteet tehtiin näytematriisiin ja toistoja tehtiin neljä jokaisella pitoisuudella. Laskettiin toistojen välinen keskihajonta sekä keskiarvo, joiden avulla määritettiin suhteellinen keskihajonta. Analyytit jaettiin kolmeen eri ryhmään, koska osalle analyyteistä tarvittiin suurempi pitoisuus kuin toiselle. Ryhmät olivat ``matala'' (0,05 - 0,2 mg/kg), ``keski'' (0,5 - 1 mg/kg) ja ``korkea'' (1 - 2 mg/kg). Taulukossa~\ref{tab:tarkkuus} on havainnollistettu eri pitoisuusryhmät ja varsinaiset tulokset ovat taulukoituina liitteessä~\ref{appx:tarkkuus}. Taulukossa~\ref{tab:saannot} on tarkkuutta kuvaavat saantoprosentit.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Pitoisuustasot sekä analyyttiryhmät}
+    \begin{tabular}{rrrr}
+    \toprule
+          & \multicolumn{3}{c}{Pitoisuus (mg/kg)} \\
+    \cmidrule{2-4}
+    Taso  & ``Matala'' & ``Keski'' & ``Korkea'' \\
+    \midrule
+    1     & 0,05  & 0,5 & 1 \\
+    2     & 0,1   & 0,75& 1,5 \\
+    3     & 0,2   & 1   & 2 \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:tarkkuus}%
+\end{table}%
+
+\begin{table}[htbp]
+  \centering
+  \caption{Tarkkuutta kuvaavat saantoprosentit}
+    \begin{tabular}{lrrr}
+    \toprule
+                         & \multicolumn{3}{c}{Saanto-\%} \\
+\cmidrule(r){2-4}
+Analyytti                & Taso 1   & Taso 2   & Taso 3  \\ 
+\midrule
+Acid yellow 36           & 76,8   & 73,2   & 80,4   \\
+Alluranpunainen , ESI+   & 62,7   & 77,8   & 104,4  \\
+Alluranpunainen, ESI-    & 96,2   & 171,8  & 76,8   \\
+Amarantti, ESI+          & 77,9   & 71,0   & 91,3   \\
+Amarantti, ESI-          & 358,8  & 136,9  & 168,8  \\
+Auramine                 & 107,0  & 98,8   & 104,4  \\
+Briljanttisininen FCF    & 57,2   & 65,2   & 87,8   \\
+Chrysoidine G            & 11,0   & 8,0    & 16,6   \\
+Erytrosiini              & 32,0   & 33,6   & 51,8   \\
+Fast garnet GBC          & 50,4   & 63,3   & 84,6   \\
+Fast green FCF           & 84,9   & 78,1   & 85,1   \\
+Indigokarmiini           & 43,1   & 36,1   & 45,6   \\
+Karmiinihappo            & 86,0   & 81,3   & 38,3   \\
+Karmosiini, ESI+         & 2169,6 & 902,1  & 1100,5 \\
+Karmosiini, ESI-         & 38,6   & 65,0   & 68,7   \\
+Kinoliinikeltainen, ESI+ & 66,2   & 26,8   & 8,0    \\
+Kurkumiini               & 102,2  & 65,6   & 57,1   \\
+Orange II                & 101,6  & 82,3   & 87,4   \\
+Paraoranssi, ESI-        & 96,3   & 86,1   & 94,6   \\
+Patenttisininen, ESI+    & 92,3   & 82,3   & 90,0   \\
+Patenttisininen, ESI-    & 82,0   & 93,7   & 91,0   \\
+Red 2G, ESI+             & 91,3   & 80,8   & 94,8   \\
+Red 2G, ESI-             & 72,9   & 68,1   & 85,7   \\
+Rhodamine B              & 92,6   & 84,8   & 94,0   \\
+Sudan orange G           & 8,1    & 9,7    & 11,5   \\
+Tartratsiini, ESI+       & 68,7   & 62,2   & 84,1   \\
+Tartratsiini, ESI-       & 821,0  & 1650,0 & 6082,7 \\
+Uuskokkiini, ESI+        & 82,0   & 89,4   & 102,5  \\
+Vihreä S                 & 85,6   & 73,7   & 75,1   \\
+Yellow 2G                & 68,1   & 165,7  & 154,7  \\
+    \bottomrule
+    \end{tabular}%
+  \label{tab:saannot}%
+\end{table}%
+
+\newpage
+\section{Mitattuja maustenäytteitä}
+Maustemenetelmää jatkokehitettiin vesiliukoisten väriaineiden osalta. Useasta maustenäytteestä löydettiin väriaineita, jotka löytyivät myös jo olemassa olevilla menetelmillä. Tehtiin myös spiikattu maustenäyte valvontanäytteestä, josta ei ollut havaittu yhtään väriainetta. Spiikatun maustenäytteen avulla saatiin todettua toimiiko uusi vesiuuttomenetelmä maustenäytteille. Kuvassa~\ref{fig:mausteuuttuminen} on esitettynä kaikki mausteuutoilla tunnistetut väriaineet. Ulkopuolisessa vihreässä ympyrässä ovat väriaineet, joille ei ole luotettavasti toimivia MS-parametrejä eli niiden uuttumisesta ei ole varmuutta.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{mauste}
+  \caption{Väriaineiden uuttuminen maustematriisissa}
+  \label{fig:mausteuuttuminen}
+\end{figure}
+%}tulokset
+
+\newpage
+\chapter{Pohdinta} %{
+
+Menetelmälle saatu mittausalue on suurimmalle osalle analyyteistä sopiva. Muutamalle analyytille tarvittaisiin huomattavasti vahvempia standardeja. Lineaarinen regressio sopii suorien perusteella analyyteille. \textit{Fast green fcf:n} kohdalla suoran kulmakerroin vaihtelee huomattavasti riippuen päivästä. \textit{Kinoliinikeltaisen} suorat ovat todella huonoja johtuen analyytin useasta eri muodosta ja tästä johtuvasta haastavasta integroinnista. \textit{Kinoliinikeltaisen} pitoisuuden olisi pitänyt olla huomattavasti suurempi. \textit{Kurkumiinillä} on erikoisesti ensimmäinen standardisuora lineaarisen sijaan polynominen. Tämän voi olettaa johtuvan \textit{kurkumiinin} hajoamisesta, koska tämän jälkeen valmistettiin uudet standardiliuokset. \textit{Sudan III:n} viimeiset suorat ovat huonoja, koska kyseinen analyytti hävisi työn loppumetreillä kokonaan omalta retentioajaltaan eikä tälle keksitty minkäänlaista syytä. \textit{Yellow 2g:n} suorat eivät ole kovinkaan yhdensuuntaisia johtuen analyytin pinta-alan suuresta vaihtelevuudesta mittausten välillä. 
+
+Matriisi vaikuttaa huomattavasti suurinpaan osaan analyyteistä virvoitusjuomamatriisissa. Kulmakertoimien prosentuaaliseksi eroksi haluttiin alle 5 \%, jotta voitaisiin todeta että matriisi ei vaikuta mittauksiin. Suodattamattomista analyyteistä ainoastaan \textit{briljanttisininen} saavutti tämän. Suodatettuna tämän saavuttivat \textit{acid yellow 36, alluranpunainen, briljanttisininen, orange II, patenttisininen} ja \textit{red 2g}. Suodattamisen huonona puolena on kuitenkin joidenkin analyyttien jääminen suodattimeen. Tulokset ovat vain yhdeltä päivältä ja näiden mittauksien jälkeen menetelmässä muutettiin useaa parametriä ja jopa näytteenkäsittelyä.
+
+Suurimmalla osalla analyyteistä saatiin suhteellinen keskihajonta (\%RSD) alle 30 \% ja tämä pitoisuus otettiin määritysrajaksi. Parhaimmillaan \%RSD oli 1,1 \% \textit{patenttisinisellä}. Määritysrajaa ei saatu määritettyä \textit{fast green fcf:lle, karmosiinille, kinoliinikeltaiselle} eikä \textit{yellow 2g:lle}. Kyseisille analyyteille tarvittaisiin todennäköisesti vielä suurempaa pitoisuutta. Saannot määritysrajatesteissä olivat väliltä 20,1 - 115,8 \%. Saantokokeiden vertailussa käytettiin metanoliin tehtyjä standardeja, joka voi selittää hunoimmat saannot. Parempia saanto-\% varten standardiliuokset pitäisi tehdä virvoitusjuomamatriisiin. Kurkumiinin saantoprosentti oli yli 200 \%, joka johtuu käytetystä vanhasta standardivälilaimennoksesta, koska \textit{kurkumiinin} on todettu hajoavan ajan kuluessa.
+
+Standardien säilyvyystulosten perusteella suurimmat vaihtelut analyyttien vasteessa olivat muutenkin ongelmallisilla analyyteillä tai negatiivisella (ESI-) puolella, joita käytettiin lähinnä analyyttien tunnistamiseen, muutamaa poikkeusta lukuunottamatta. Retentioaikojen vaihtelu analyyteillä oli yllättävän pientä, suurimmillaan 7,3 \% ja sekin \textit{amarantilla} (ESI-). Suurta vaihtelua pinta-aloissa oli \textit{fast green fcf:llä}, \textit{vihreä s:llä} ja \textit{Yellow 2g:llä}, jotka viimeisimmissä mittauksissa saivat huomattavasti suurempia vasteita kuin ensimmäisissä. Tunnetusti hajoava yhdiste \textit{indigokarmiini} ei tulosten perusteella ehtinyt tällä aikavälillä huomattavasti hajoamaan vaikka vasteen vaihtelu olikin suurehkoa. Indigokarmiinille jouduttiin työn aikana kuitenkin tekemään uusi kantaliuos. \textit{Kinoliinikeltaisen} osalta vaihtelu oli merkittävää, eikä jokaiselle päivälle saatu edes tulosta. \textit{Kurkumiinin} on epäilty hajoavan ajan myötä ja tulokset tukevat tätä päätelmää. \textit{Kurkumiinin} pinta-ala on pudonnut n. 100 000:sta n. 30 000:een ja korkeus suunnilleen saman verran. 
+\newpage
+Tarkkuusmääritykset saatiin tehtyä vain yhtenä päivänä ajanpuutteen vuoksi, joten voidaan vertailla vain samana päivänä (\textit{intra-day}) mitattujen rinnakkaisten näytteiden tuloksia. Suhteellinen keskihajonta näytteiden välillä oli 1,2 - 88,8 \%. Suhteellinen keskihajonta oli huomattavasti suurempi pienillä pitoisuuksilla kuin suurilla. Keskimäärin suhteellinen keskihajonta oli n. 20 \%. Saannot näille testeille olivat välillä 8,0 - 165,7 \%. Saannot olivat kuitenkin keskimäärin n. 70 \%. Saantojen vaihtelu johtuu todennäköisimmin käytetyistä standardiliuoksista, koska niitä ei oltu tehty matriisiin. Matriisilla on todettu olevan vasteeseen vähentävä vaikutus. Erityisesti matriisiefekti vaikuttaa \textit{chrysoidine g-} ja \textit{sudan orange g} -väriaineisiin. %Toinen vaikuttava tekijä on käytetty SPE-uutto, joka ei välttämättä sovellu kyseisille analyyteille ja ne eluoituvat etukäteen patruunasta. Kyseisen ongelman takia alkuperäistä uuttoa muutettiinkin hieman.
+
+Taulukosta~\ref{tab:tulokset} nähdään tiivistelmä saaduista tuloksista. Liitteestä~\ref{appx:havainnot} löytyy työn aikana löydettyjä havaintoja analyyttien käyttäytymisestä.
+
+\begin{table}[htbp]
+  \begin{threeparttable}
+  \centering
+  \caption{Tiivistelmä virvoitusjuomamatriisin tuloksista}
+    \begin{tabular}{lcccc}
+    \toprule
+    \multicolumn{1}{l}{\multirow{2}[0]{*}{Analyytti}} & \multicolumn{1}{c}{Lineaarisuus,} & \multicolumn{1}{c}{Lineaarisuus,} & \multicolumn{1}{c}{Määritys-} & \multicolumn{1}{l}{\multirow{2}[0]{*}{Tarkkuus}} \\
+    \multicolumn{1}{c}{} & \multicolumn{1}{c}{liuotin} & \multicolumn{1}{c}{matriisi} & \multicolumn{1}{c}{raja} & \multicolumn{1}{c}{} \\
+       \midrule
+    Acid Yellow 36     & \ok & \ok & \ok & \ok \\
+    Alluranpunainen    & \ok & \ok & \ok & \ok \\
+    Amarantti          & \ok & \no & \ok & \ok \\
+    Auramine           & \ok & \no & \no & \ok \\
+    Briljanttimusta    & \no & \no & \no & \no \\
+    Briljanttisininen  & \ok & \ok & \ok & \ok \\
+    Chrysoidine G      & \ok & \no & \no & \no \\
+    Erytrosiini        & \ok & \ok & \ok & \ma \\
+    Fast garnet GBC    & \ok & \no & \ok & \ok \\
+    Fast green FCF     & \ok & \no & \ma & \ma \\
+    Indigokarmiini     & \ok & \no & \ok & \ma \\
+    Karmiinihappo      & \ok & \no & \ok & \no \\
+    Karmosiini         & \ok & \no & \ma & \ma \\
+    Kinoliinikeltainen & \no & \no & \no & \no \\
+    Kurkumiini         & \ok & \ok & \ok & \ok \\
+    Oil orange SS      & \ok & \no & \no & \no \\
+    Orange II          & \ok & \ok & \ok & \ok \\
+    Paraoranssi        & \ok & \ok & \ok & \ok \\
+    Para Red           & \ok & \no & \no & \no \\
+    Patenttisininen    & \ok & \ok & \ok & \ok \\
+    Red 2G             & \ok & \ok & \ok & \ok \\
+    Rhodamine B        & \ok & \no & \ok & \ok \\
+    Ruskea HT          & \ma & \no & \no & \no \\
+    Sudan I            & \ok & \no & \no & \no \\
+    Sudan II           & \ok & \no & \no & \no \\
+    Sudan III          & \ok & \no & \no & \no \\
+    Sudan IV           & \ok & \no & \no & \no \\
+    Sudan orange G     & \ok & \no & \ok & \no \\
+    Sudan red 7B       & \ok & \no & \no & \no \\
+    Sudan red B        & \ok & \no & \no & \no \\
+    Sudan red G        & \ok & \no & \no & \no \\
+    Sudan yellow       & \ok & \no & \no & \no \\
+    Tartratsiini       & \ok & \ok & \ok & \ok \\
+    Toluidine red      & \ok & \no & \no & \no \\
+    Uuskokkiini        & \ok & \no & \ok & \ok \\
+    Vihreä S           & \ok & \no & \ok & \ma \\
+    Yellow 2 G         & \ma & \no & \ma & \ma \\
+    \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \small
+      \item \ok: tulos ok, \no: ei tulosta, \ma: kohtalainen tulos
+    \end{tablenotes}
+  \label{tab:tulokset}
+  \end{threeparttable}
+\end{table}%
+
+%}pohdinta
+\clearpage
+\chapter{Päätelmät} %{
+Tässä opinnäytetyössä oli tarkoitus kehittää uutta analyysimenetelmää väriaineiden tunnistamiseen elintarvikkeista. Tavoitteena oli validoida menetelmä virvoitusjuomamatriisille sekä kehittää analyytiikkaa vesiliukoisille väriaineille maustematriisista. Virvoitusjuomamatriisin validointi jäi hieman vajaaksi ajanpuutteen vuoksi, mutta huomattavaa edistystä menetelmän parissa tehtiin. Maustematriisin osalta ehdittiin kehittää luotettavalta vaikuttava esikäsittelymenetelmä vesiliukoisille väriaineille.
+
+Virvoitusjuomien osalta menetelmällä saatiin määritettyä vesiliukoisia väriaineita luotettavasti. Matriisi vaikuttaa suunnattoman paljon eri analyytteihin, joten kvantitatiivisia tuloksia varten menetelmässä on pakko käyttää standardiliuoksia, jotka on tehty matriisiin. Haittapuolena tässä on näytteenkäsittelyn ajankulutus. Näytteenkäsittelyyn jouduttiin varaamaan yllättävän paljon aikaa. SPE-uutto itsessään on nopea suorittaa, varsinkin kun näytteille ei tarvinnut käyttää alipainetta virtauksen saamiseksi. Hidasteeksi osoittautui uuton jälkeinen liuottimen vaihtaminen typpikuivauksella. Kuivaukseen kului vähintään kaksi tuntia aikaa ja vielä kauemmin, jos näytteitä oli enemmän kuin kuivauslaitteen kapasiteetti. Virvoitusjuoman matriisiefektiä tulisi tutkia vielä tarkemmin, koska tässä työssä ehdittiin tehdä matriisipohjaiset standardit analyyteille vain työn alkuvaiheilla ja tämän jälkeen menetelmää muutettiin.
+
+Virvoitusjuomamatriisin tulokset eroavat huomattavasti menetelmän pohjana käytetyn artikkelin  tuloksista. Artikkelissa analyyteille saatiin pienemmät määritysrajat. Tämä kuitenkin selittyy artikkelin menetelmässä käytetystä \textit{Orbitrap}-massaspektrometristä, joka on kolmoiskvadrupolia herkempi. Artikkelissa oli mukana vain 11 vesiliukoista väriainetta, joista tässä menetelmässä olivat mukana \textit{yellow 2g, karmosiini, orange II} ja \textit{acid yellow 36}. \cite{watersolubleazo}
+\newpage
+Maustematriisille saatiin kehitettyä erittäin helppo ja nopea uutto vesiliuokoisille analyyteille, mikä täydentää asetonitriiliuuttoa. Jatkoa varten pitäisi vielä pohtia, miten saadaan yhdistelmäuute kvantitoitua ja kuinka hyvin kyseiset uutot toimivat keskenään, vai joudutaanko ne kuitenkin ajamaan erikseen.
+
+Menetelmän suurimmat ongelmat analyyttien kohdalla on vesiliukoisimpien ja rasvaliukoisimpien kanssa, kuten liitteestä~\ref{appx:havainnot} nähdään. \textit{Uuskokkiinia} ja \textit{amaranttia} ei pystytty erottamaan toisistaan, johtuen analyyttien samankaltaisesta rakenteesta. \textit{Sudan IV}- ja \textit{sudan red b} -väriaineiden kohdalla ongelmaksi ilmeni kaksoispiikki ajon loppupäässä, mistä ei tiedetä kumpi piikeistä on kumpi väriaine. Ongelman pystyisi todennäköisesti ratkaisemaan ajamalla kummallekin väriaineelle oma standardi ja tutkimaan näiden retentioajat. Ongelmaksi jäisi silti kaksoispiikin kvantitoiminen luotettavasti. \textit{Briljanttimustan} ja \textit{ruskea ht:n} ongelmiksi jäi puuttuvat toimivat massaparametrit, mutta työn loppumetreillä \textit{ruskea ht:lle} saatiin löydettyä jonkinlaiset uudet parametrit, jotka tarvitsevät lisää tutkimista.
+
+%}johtopäätökset
+%----------------------------------------------------------------------------------------
+%   BIBLIOGRAPHY{ 
+%----------------------------------------------------------------------------------------
+\clearpage
+%\bibliographystyle{vancouver_fi}
+\IfLanguageName{finnish}{\bibliographystyle{vancouver_fi}}{\bibliographystyle{vancouver}}
+%line space
+%\singlespacing %removed otherwise the appendix are also single space
+\begin{flushleft}
+\begin{singlespacing}
+\bibliography{biblio}
+\end{singlespacing}
+\end{flushleft}
+%for conting the pages
+\label{LastPage}~
+%}
+%----------------------------------------------------------------------------------------
+%   APPENDICES{ 
+%----------------------------------------------------------------------------------------
+%avoid that the last page of bib get appendix header
+\clearpage
+%start appendix
+\appendix
+%no page number for appendix in table of content
+\addtocontents{toc}{\cftpagenumbersoff{chapter}}
+%appendix sections and subsections not in table of content
+\settocdepth{chapter}
+%add "Appendices" in the table of content
+\renewcommand{\appendixtocname}{Liitteet}
+\addappheadtotoc
+%force smaller vertical spacing in table of content
+%!!! There can be some fun depending if the appendices have (sub)sections or not :D
+% You will have to play with these numbers and eventually copy the \pretocmd line on before some \chapter and force another number.
+\addtocontents{toc}{\vspace{11pt}}
+\pretocmd{\chapter}{\addtocontents{toc}{\protect\vspace{-24pt}}}{}{}
+%have Appendix 1 (instead of Appendix A)
+\renewcommand{\thechapter}{\arabic{chapter}}
+\newcommand\liite[1]{
+%each appendix restart page num to one
+\setcounter{page}{1}
+%special counter for appendix TODO: this is a ugly quick hack :( Should find a better way to count the page per appendix.
+\newtotcounter{appx#1}
+%overwrite the header
+\makeevenhead{plain}{}{}{\appname \thechapter \\ \thepage\,(\stepcounter{appx#1}\total{appx#1})}
+\makeoddhead{plain}{}{}{\appname \thechapter \\ \thepage\,(\stepcounter{appx#1}\total{appx#1})}}
+
+
+\setcounter{page}{1}
+%special counter for appendix TODO: this is a ugly quick hack :( Should find a better way to count the page per appendix.
+\newtotcounter{appx1}
+%overwrite the header
+\makeevenhead{plain}{}{}{\\[24pt]\appname \thechapter \\ \thepage\,(\stepcounter{appx1}\total{appx1})}
+\makeoddhead{plain}{}{}{\\[24pt]\appname \thechapter \\ \thepage\,(\stepcounter{appx1}\total{appx1})}
+\input{kromatogrammi}
+
+\clearpage
+\liite{2}
+\addtocontents{toc}{\vspace{11pt}}
+\input{analyytit}
+
+\clearpage
+\liite{3}
+\addtocontents{toc}{\vspace{11pt}}
+\input{parametrit}
+
+\clearpage
+\liite{4}
+\addtocontents{toc}{\vspace{11pt}}
+\input{suorat}
+
+\clearpage
+\liite{5}
+\addtocontents{toc}{\vspace{11pt}}
+\input{sailyvyys}
+
+\clearpage
+\liite{6}
+\addtocontents{toc}{\vspace{11pt}}
+\input{tarkkuus}
+
+\clearpage
+\liite{7}
+\addtocontents{toc}{\vspace{11pt}}
+\input{havainnot}
+%}
+\end{document}

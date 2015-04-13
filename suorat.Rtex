@@ -1,0 +1,241 @@
+\newgeometry{top=2.5cm, bottom=0cm, left=4cm, right=2cm, nofoot}
+\makeatletter
+\setlength{\@fpsep}{0pt}
+\setlength{\@fpbot}{0pt}
+\makeatother
+\chapter{Standardisuorat}\label{appx:suorat}
+\vspace{-40pt}
+<<echo=FALSE, cache=TRUE >>=
+lm_eqn = function(m) {
+
+  l <- list(b = format(abs(coef(m)[1]), digits = 2, nsmall = 2),
+      a = format(coef(m)[2], digits = 2, nsmall = 2),
+      r2 = format(summary(m)$adj.r.squared, digits = 4));
+
+  if (coef(m)[1] >= 0)  {
+    eq <- substitute(italic(y) == a~italic(x) + b *","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a~italic(x) - b *","~~italic(r)^2~"="~r2,l)
+  }
+
+  as.expression(eq);                  
+}
+
+lm_poly = function(m) {
+
+  l <- list(b = format(abs(coef(m)[1]), digits = 2, nsmall = 2),
+      a = format(coef(m)[2], digits = 2, nsmall = 2),
+      c = format(coef(m)[3], digits = 2, nsmall = 2),
+      r2 = format(summary(m)$adj.r.squared, digits = 4));
+
+  if (coef(m)[1] >= 0)  {
+    eq <- substitute(italic(y) == c~italic(x)^2 + a~italic(x) + b *","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a~italic(x) - b *","~~italic(r)^2~"="~r2,l)
+  }
+
+  as.expression(eq);                  
+}
+
+paivaA <- c("7.10.2013",	"28.10.2013", "29.10.2013", "30.10.2013", "6.11.2013")
+paivaB <- c("28.10.2013", "29.10.2013", "30.10.2013", "6.11.2013")
+liuotinC <- c("Metanoli", "Matriisi", "Matriisi (suodatettu)")
+
+vari = read.csv2(file="data/vari.csv", header = FALSE, sep = ";", dec = ",", fill = TRUE, check.names=FALSE)
+
+plotA<-function(l){
+  tnimi <- c(paste("data/", l,".csv", sep = ""))
+  data = read.csv2(file=tnimi, header = TRUE, sep = ";", dec = ",", fill = TRUE)
+  
+  suora1 <- lm(data$y1~data$x)
+  suora2 <- lm(data$y2~data$x)
+  suora3 <- lm(data$y3~data$x)
+  suora4 <- lm(data$y4~data$x)
+  suora5 <- lm(data$y5~data$x)
+
+  plot(data$x, data$y1, col=2, main=vari$V2[l], xlab="Pitoisuus (mg/kg)", ylab="Pinta-ala")
+  points(data$x, data$y2, type="p", col=3, pch=22)
+  points(data$x, data$y3, type="p", col=4, pch=23)
+  points(data$x, data$y4, type="p", col=5, pch=24)
+  points(data$x, data$y5, type="p", col=6, pch=25)
+  
+  abline(suora1, col=2)
+  abline(suora2, col=3)
+  abline(suora3, col=4)
+  abline(suora4, col=5)
+  abline(suora5, col=6)
+  legend("topleft", inset=0.03, legend = paivaA, pch=21:25, col=2:6)
+  legenda <- c(lm_eqn(suora1), lm_eqn(suora2), lm_eqn(suora3), lm_eqn(suora4), lm_eqn(suora5))
+  legend("bottomright", inset=0.03, legend = legenda, lty=1:1, col=2:6)
+}
+
+plotB<-function(l){
+  tnimi <- c(paste("data/", l,".csv", sep = ""))
+  data = read.csv2(file=tnimi, header = TRUE, sep = ";", dec = ",", fill = TRUE)
+  
+  #suora1 <- lm(data$y1~data$x)
+  suora2 <- lm(data$y2~data$x)
+  suora3 <- lm(data$y3~data$x)
+  suora4 <- lm(data$y4~data$x)
+  suora5 <- lm(data$y5~data$x)
+
+  plot(data$x, data$y2, col=3, pch=22, main=vari$V2[l], xlab="Pitoisuus (mg/kg)", ylab="Pinta-ala")
+  #points(data$x, data$y2, type="p", col=3, pch=22)
+  points(data$x, data$y3, type="p", col=4, pch=23)
+  points(data$x, data$y4, type="p", col=5, pch=24)
+  points(data$x, data$y5, type="p", col=6, pch=25)
+  
+  #abline(suora1, col=2)
+  abline(suora2, col=3)
+  abline(suora3, col=4)
+  abline(suora4, col=5)
+  abline(suora5, col=6)
+  legend("topleft", inset=0.03, legend = paivaB, pch=22:25, col=3:6)
+  legenda <- c(lm_eqn(suora2), lm_eqn(suora3), lm_eqn(suora4), lm_eqn(suora5))
+  legend("bottomright", inset=0.03, legend = legenda, lty=1:1, col=3:6)
+}
+
+plotC<-function(l){
+  tnimi <- c(paste("data/", l,".csv", sep = ""))
+  data = read.csv2(file=tnimi, header = TRUE, sep = ";", dec = ",", fill = TRUE)
+  
+  suora1 <- lm(data$y6~data$x)
+  suora2 <- lm(data$y7~data$x)
+  suora3 <- lm(data$y8~data$x)
+  
+  plot(data$x, data$y6, col=2, main=vari$V2[l], xlab="Pitoisuus (mg/kg)", ylab="Pinta-ala", xlim=c(0,1))
+  points(data$x, data$y7, type="p", col=3, pch=22)
+  points(data$x, data$y8, type="p", col=4, pch=23)
+
+  abline(suora1, col=2)
+  abline(suora2, col=3)
+  abline(suora3, col=4)
+  
+  legend("topleft", inset=0.03, legend = liuotinC, pch=21:23, col=2:4)
+  legenda <- c(lm_eqn(suora1), lm_eqn(suora2), lm_eqn(suora3))
+  legend("bottomright", inset=0.03, legend = legenda, lty=1:1, col=2:4)
+}
+
+plotD<-function(l){
+  tnimi <- c(paste("data/", l,".csv", sep = ""))
+  data = read.csv2(file=tnimi, header = TRUE, sep = ";", dec = ",", fill = TRUE)
+  
+  suora1 <- lm(data$y1~data$x+I(data$x^2))
+  suora2 <- lm(data$y2~data$x)
+  suora3 <- lm(data$y3~data$x)
+  suora4 <- lm(data$y4~data$x)
+  suora5 <- lm(data$y5~data$x)
+
+  plot(data$x, data$y1, col=2, main=vari$V2[l], xlab="Pitoisuus (mg/kg)", ylab="Pinta-ala", ylim=c(0,163000))
+  points(data$x, data$y2, type="p", col=3, pch=22)
+  points(data$x, data$y3, type="p", col=4, pch=23)
+  points(data$x, data$y4, type="p", col=5, pch=24)
+  points(data$x, data$y5, type="p", col=6, pch=25)
+  
+  #abline(suora1, col=2)
+  lines(data$x, predict(suora1), col=2) 
+  abline(suora2, col=3)
+  abline(suora3, col=4)
+  abline(suora4, col=5)
+  abline(suora5, col=6)
+  legend("topleft", inset=0.03, legend = paivaA, pch=21:25, col=2:6)
+  legenda <- c(lm_poly(suora1), lm_eqn(suora2), lm_eqn(suora3), lm_eqn(suora4), lm_eqn(suora5))
+  legend("bottomright", inset=0.03, legend = legenda, lty=1:1, col=2:6)
+}
+
+@
+
+<<plots, echo=FALSE, cache=TRUE, fig.height=11 >>=
+#par(mfrow=c(2,1)) 
+layout(matrix(c(1,1,2,2), 2, 2, byrow = TRUE))
+plotA(2)
+plotC(2)
+
+plotA(3)
+plotC(3)
+
+#par(mfrow=c(1,1)) 
+plotA(4)
+
+plotB(5)
+
+#par(mfrow=c(2,1)) 
+plotA(6)
+plotC(6)
+#par(mfrow=c(1,1)) 
+
+plotB(7)
+
+#par(mfrow=c(2,1)) 
+plotA(8)
+plotC(8)
+#par(mfrow=c(1,1))
+
+plotA(9)
+
+plotA(10)
+
+plotA(11)
+
+plotA(12)
+
+plotA(13)
+
+plotA(14)
+
+#par(mfrow=c(2,1)) 
+plotD(15)
+plotC(15)
+#par(mfrow=c(1,1)) 
+
+plotB(16)
+
+#par(mfrow=c(2,1)) 
+plotA(17)
+plotC(17)
+#par(mfrow=c(1,1)) 
+
+plotB(18)
+
+#par(mfrow=c(2,1)) 
+plotA(19)
+plotC(19)
+plotA(20)
+plotC(20)
+plotA(21)
+plotC(21)
+#par(mfrow=c(1,1)) 
+
+plotB(22)
+
+plotB(23)
+
+plotB(24)
+
+plotB(25)
+
+plotB(26)
+
+plotA(27)
+
+plotB(28)
+
+plotB(29)
+
+plotB(30)
+
+plotB(31)
+
+#par(mfrow=c(2,1)) 
+plotA(32)
+plotC(32)
+#par(mfrow=c(1,1)) 
+
+plotB(33)
+
+plotA(34)
+
+plotA(35)
+
+plotA(36)
+@
